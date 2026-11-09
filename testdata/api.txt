@@ -1,0 +1,58 @@
+const ProfileAll
+const ProfileBill
+const ProfileCoverage
+field GenerateRequest.AllowExperimental bool
+field GenerateRequest.Amount string
+field GenerateRequest.DerivationAuthorized bool
+field GenerateRequest.Profile Profile
+field GenerateRequest.Reference string
+field ParseError.Err error
+field ParseError.Offset int
+field Payload.Profile Profile
+field Payload.Reference string
+field Payload.Template *Template
+field Payload.Text string
+func (*ParseError) Error() string
+func (*ParseError) Unwrap() error
+func (*Template) Amount() (string, bool)
+func (*Template) AppendBinary(dst []byte) ([]byte, error)
+func (*Template) Generate(req GenerateRequest) (*Payload, error)
+func (*Template) GoString() string
+func (*Template) IsDynamic() bool
+func (*Template) MarshalBinary() ([]byte, error)
+func (*Template) String() string
+func (*Template) SubValue(tag uint8) (string, bool)
+func (*Template) Text() string
+func (*Template) UnmarshalBinary(b []byte) error
+func (*Template) Value(tag uint8) (string, bool)
+func (*Template) VerifyCRC() bool
+func Decode(b []byte) (*Template, error)
+func Generate(template string, req GenerateRequest) (*Payload, error)
+func NewReference(n int) (string, error)
+func Parse(s string) (*Template, error)
+func Sanitize(s string) (string, error)
+type GenerateRequest struct
+type ParseError struct
+type Payload struct
+type Profile uint8
+type Template struct
+var ErrAmount
+var ErrBadProfile
+var ErrBadReference
+var ErrBlob
+var ErrBlobChecksum
+var ErrBlobMagic
+var ErrBlobVersion
+var ErrCRC
+var ErrCRCFormat
+var ErrCapacity
+var ErrDuplicateTag
+var ErrExperimental
+var ErrInvalidText
+var ErrMalformedTLV
+var ErrMissingTag
+var ErrNotAuthorized
+var ErrTooLong
+var ErrTooShort
+var ErrTruncated
+var ErrUnsupported
