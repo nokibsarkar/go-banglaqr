@@ -27,7 +27,9 @@ jobs:
           total=$(go tool cover -func=cover.out | awk '/^total:/ {print $3}')
           echo "coverage: $total"
           [ "$total" = "100.0%" ]
-      - run: go run honnef.co/go/tools/cmd/staticcheck@2025.1.1 ./...
+      # Staticcheck must be built by a Go at least as new as the code it reads.
+      - if: ${{ matrix.go == 'stable' }}
+        run: go run honnef.co/go/tools/cmd/staticcheck@v0.8.2 ./...
       - if: ${{ matrix.go == 'stable' }}
         run: go run golang.org/x/vuln/cmd/govulncheck@latest ./...
       - name: Fuzz smoke
