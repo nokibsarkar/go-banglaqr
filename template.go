@@ -12,13 +12,13 @@ type Template struct {
 	sub  []elem // tag 62 sub-elements, offsets absolute into src
 }
 
-// String is redacted: merchant routing fields stay out of default logs (QR-12).
+// String is redacted: merchant routing fields stay out of default logs.
 func (t *Template) String() string { return "banglaqr.Template{redacted}" }
 
 // GoString is redacted too.
 func (t *Template) GoString() string { return t.String() }
 
-// Text returns the exact source payload (including CRC), unchanged (QR-02).
+// Text returns the exact source payload (including CRC), unchanged.
 func (t *Template) Text() string {
 	if t == nil {
 		return ""
@@ -55,7 +55,7 @@ func (t *Template) SubValue(tag uint8) (string, bool) {
 }
 
 // IsDynamic reports point-of-initiation "12". This is a semantic flag only; it
-// implies no single-use or expiry guarantee (QR-06).
+// implies no single-use or expiry guarantee.
 func (t *Template) IsDynamic() bool { v, _ := t.Value(1); return v == "12" }
 
 // Amount returns the text of tag 54 (for example "100.50") if present. It is

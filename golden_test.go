@@ -78,7 +78,7 @@ func TestZeroAndNilTemplates(t *testing.T) {
 }
 
 // The codec is standard-library only: no third-party code, and never the
-// payment SDK, so adopting it adds nothing to a dependency graph.
+// other library, so adopting it adds nothing to a dependency graph.
 func TestStandardLibraryOnly(t *testing.T) {
 	mod, err := os.ReadFile("go.mod")
 	if err != nil {

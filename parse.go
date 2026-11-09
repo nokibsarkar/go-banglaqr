@@ -69,7 +69,7 @@ func scan(s string, base int, out []elem) ([]elem, error) {
 }
 
 // Parse sanitizes and parses a payload, verifying its CRC and the Bangla QR
-// profile invariants (QR-04, QR-05, QR-09). Unsupported templates fail closed.
+// profile invariants. Unsupported templates fail closed.
 func Parse(s string) (*Template, error) {
 	// Bound work on hostile input before any allocation: noise stripping can
 	// only shrink the text, and a valid payload is at most maxPayload bytes.

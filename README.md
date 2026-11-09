@@ -16,19 +16,17 @@ go get github.com/nokibsarkar/go-banglaqr
 import banglaqr "github.com/nokibsarkar/go-banglaqr"
 ```
 
-It is standalone: no network, no image renderer (hand `Payload.Text` to any QR
-encoder), no third-party modules, and no dependency on any payment SDK (SDKs may
-depend on it, never the reverse). A generated payload is a payment instruction,
-**never evidence that a payment happened**.
+It is local and deterministic: no network, no image renderer (hand `Payload.Text`
+to any QR encoder) and no third-party modules. A generated payload is a payment
+instruction, **never evidence that a payment happened**: confirm payments with
+your acquirer.
 
 ## Features
 
-Requirement IDs in comments (QR-03 and so on) refer to the specification in
-[go-payment](https://github.com/nokibsarkar/go-payment) `docs/SRS.md`.
 
 - `Parse` – sanitizes scanner noise, verifies CRC-16/CCITT-FALSE, enforces BDT/BD/tag-01/merchant-account invariants, rejects duplicates and truncation. One pass, flat offset index.
 - `Template.MarshalBinary` / `Decode` – compact blob for DB storage; decoding skips value scanning and the QR CRC, validating a CRC-32C trailer and that the index tiles the payload exactly. `VerifyCRC()` is available for untrusted storage.
-- `Generate` – copies every untouched element byte-for-byte; sets 01=12, 54, 62.01 (bill profile; coverage/all are explicit experimental opt-ins), re-appends CRC, re-parses the result. Requires `DerivationAuthorized` (QR-03).
+- `Generate` – copies every untouched element byte-for-byte; sets 01=12, 54, 62.01 (bill profile; coverage/all are explicit experimental opt-ins), re-appends CRC, re-parses the result. Requires `DerivationAuthorized`: you confirm your acquiring contract permits deriving dynamic QR codes from the static one.
 
 ## Usage
 
@@ -72,6 +70,12 @@ go test -race -cover ./...
 go test -run xxx -bench . -benchmem
 go test -run xxx -fuzz FuzzParse -fuzztime 30s   # also FuzzDecode, FuzzGenerate
 ```
+
+## Related projects
+
+- [go-payment](https://github.com/nokibsarkar/go-payment) – a vendor-neutral Go
+  payment SDK whose Bangla QR adapter is built on this package. This package does
+  not depend on it.
 
 ## Contributing and security
 

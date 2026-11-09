@@ -183,7 +183,7 @@ func TestGenerateCapacityAndAmountBounds(t *testing.T) {
 
 func TestGenerateRevalidatesOversizedOutput(t *testing.T) {
 	// A template that is legal on its own but whose dynamic form would exceed
-	// the payload limit must be rejected by the output re-parse (QR-04).
+	// the payload limit must be rejected by the output re-parse.
 	tagStr := func(n int) string { return fmt.Sprintf("%02d", n) }
 	body := tlv("00", "01") + tlv("01", "11") + tlv("53", "050") + tlv("58", "BD")
 	for tag := 26; tag <= 51; tag++ {

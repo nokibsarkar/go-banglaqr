@@ -1,10 +1,10 @@
 // Package banglaqr parses, sanitizes and transforms EMVCo merchant-presented
 // Bangla QR payloads, and generates amount-specific (dynamic) QR text from an
-// authorized static merchant template (SRS §11, QR-01..QR-18).
+// authorized static merchant template.
 //
-// It is standalone: local, deterministic, no network, no renderer and no
-// dependency on a payment SDK. A generated payload is a payment instruction,
-// never evidence of payment.
+// It is local and deterministic: no network, no renderer and no third-party
+// dependencies. A generated payload is a payment instruction, never evidence
+// that a payment happened.
 //
 // A parsed Template is an immutable, compact, stateful value: the original
 // payload bytes plus a flat offset index. It serializes to a small binary blob

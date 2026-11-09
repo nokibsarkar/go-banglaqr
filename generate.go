@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// Profile selects which tag-62 sub-fields receive the reference (QR-07).
+// Profile selects which tag-62 sub-fields receive the reference.
 type Profile uint8
 
 const (
@@ -42,7 +42,7 @@ type GenerateRequest struct {
 	Reference string // 1..25 of [A-Za-z0-9._-]; see NewReference
 	Profile   Profile
 	// DerivationAuthorized must be true: the caller confirms that deriving a
-	// dynamic QR from this source is permitted by the acquiring contract (QR-03).
+	// dynamic QR from this source is permitted by the acquiring contract.
 	DerivationAuthorized bool
 	// AllowExperimental must be true for any profile other than ProfileBill.
 	AllowExperimental bool
@@ -50,7 +50,7 @@ type GenerateRequest struct {
 	_ struct{} // forces keyed literals so fields can be added compatibly
 }
 
-// Payload is the generation result. It carries no payment state (QR-02).
+// Payload is the generation result. It carries no payment state.
 type Payload struct {
 	Text      string // full TLV payload; populate a presentation's QRData with it
 	Reference string
@@ -243,7 +243,7 @@ func (t *Template) Generate(req GenerateRequest) (*Payload, error) {
 	sb.WriteByte(hexUpper[c&15])
 
 	text := sb.String()
-	nt, err := parseClean(text) // QR-04: revalidate output
+	nt, err := parseClean(text) // revalidate the output
 	if err != nil {
 		return nil, err
 	}

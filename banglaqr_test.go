@@ -308,7 +308,7 @@ func TestRepeatedReferencesUnique(t *testing.T) {
 }
 
 func TestGenerateHasNoPaymentState(t *testing.T) {
-	// Payload exposes no Paid/Succeeded field (QR-02); compile-time shape check.
+	// Payload exposes no Paid/Succeeded field; compile-time shape check.
 	var _ = Payload{Text: "", Reference: "", Profile: ProfileBill}
 }
 
